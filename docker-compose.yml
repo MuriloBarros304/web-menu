@@ -1,0 +1,35 @@
+services:
+  db:
+    image: mysql:8.0
+    restart: always
+    environment:
+      MYSQL_DATABASE: webmenu
+      MYSQL_USER: webmenu_user
+      MYSQL_PASSWORD: your_password
+      MYSQL_ROOT_PASSWORD: your_root_password
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 10
+
+  web:
+    build: .
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    environment:
+      - DB_HOST=db
+      - DB_NAME=webmenu
+      - DB_USER=webmenu_user
+      - DB_PASSWORD=your_password
+
+volumes:
+  mysql_data:
