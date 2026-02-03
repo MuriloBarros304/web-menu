@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'django_rest_passwordreset',
     'rest_framework.authtoken',
     'users',
     'restaurant',
@@ -147,3 +148,10 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.IsAuthenticated', # Bloqueia qualquer rota para anônimos
     ]
 }
+
+# Email backend para desenvolvimento - imprime emails no console
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+# django-rest-passwordreset
+DJANGO_REST_PASSWORDRESET_NO_INFORMATION_LEAKAGE = True
+DJANGO_REST_MULTITOKENAUTH_RESET_TOKEN_EXPIRY_TIME = 3 # Em horas

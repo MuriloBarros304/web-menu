@@ -9,5 +9,5 @@ router.register(r'tables', TableViewSet, basename='table')
 router.register(r'orders', OrderViewSet, basename='order')
 
 urlpatterns = [
-    path('', include(router.urls)),
+    path('', include(router.urls), name='restaurant'),
 ]
